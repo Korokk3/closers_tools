@@ -119,8 +119,9 @@
         `;
     }
 
-    function formatNumber(value) {
+    function formatNumber(value, round) {
         if (!Number.isFinite(value)) return String(value);
+        if (round) value = Math.round(value);
         try {
             return Number(value).toLocaleString(undefined, {
                 minimumFractionDigits: 0,
@@ -142,7 +143,7 @@
         if (meta.format === 'percent') {
             return `${formatNumber(value * 100)}%`;
         }
-        return formatNumber(value);
+        return formatNumber(value, true);
     }
 
     function formatStatDiff(statKey, delta) {
@@ -153,7 +154,7 @@
         if (meta.format === 'percent') {
             return `${sign}${formatNumber(delta * 100)}%`;
         }
-        return `${sign}${formatNumber(delta)}`;
+        return `${sign}${formatNumber(delta, true)}`;
     }
 
     function getStatLabel(statKey) {
