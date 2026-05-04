@@ -1,14 +1,9 @@
 (function () {
     const CHIP_JSON = './data/chip_data.json';
     const LANG_JSON = './data/chip_lang.json';
+    const EXP_JSON = './data/chip_exp.json';
     const MAX_SHOW_LEVEL = 25;
-    const EQUIP_LABELS = {
-        EP_POWER_PRIVATE: '코어',
-        EP_POWER_WEAPON: '모듈',
-        EP_POWER_DEFENCE: '실드',
-        EP_POWER_RECEIVER: '리시버',
-        EP_TRANSFORM: '디스크',
-    };
+    const EQUIP_LABELS = {};
     const EQUIP_ORDER = ['코어', '모듈', '실드', '리시버', '디스크'];
 
     let chips = [];
@@ -28,12 +23,23 @@
         return chips.find((chip) => chip.chip_id === id);
     }
 
+    function resolveExpRequirements(entry, expTables) {
+        if (entry && entry.exp_requirements && Object.keys(entry.exp_requirements).length) {
+            return entry.exp_requirements;
+        }
+
+        const expId = entry && (entry.exp_id ?? entry.exp_requirements_id);
+        if (expId === undefined || expId === null) return {};
+
+        return (expTables && (expTables[String(expId)] || expTables[expId])) || {};
+    }
+
     function hasEquipSlot(chip, equipType) {
-        return !!(chip.equipment_options && chip.equipment_options[equipType]);
+        return !!(chip.options && chip.options[equipType]);
     }
 
     function getMaxLevelForChip(chip, equipType) {
-        const levels = Object.keys((chip.equipment_options && chip.equipment_options[equipType]) || {});
+        const levels = Object.keys((chip.options && chip.options[equipType]) || {});
         let max = 0;
         levels.forEach((levelKey) => {
             const level = parseInt(levelKey, 10);
@@ -43,8 +49,8 @@
     }
 
     function getEquipStatsAtLevel(chip, level, equipType) {
-        const entry = chip.equipment_options && chip.equipment_options[equipType] && chip.equipment_options[equipType][String(level)];
-        return entry && Array.isArray(entry.stat_data) ? entry.stat_data : [];
+        const entry = chip.options && chip.options[equipType] && chip.options[equipType][String(level)];
+        return entry && Array.isArray(entry.stat) ? entry.stat : [];
     }
 
     function normalizeStats(statsArray) {
@@ -379,10 +385,12 @@
     Promise.all([
         fetch(CHIP_JSON).then((response) => response.json()),
         fetch(LANG_JSON).then((response) => response.json()).catch(() => ({})),
+        fetch(EXP_JSON).then((response) => response.json()).catch(() => ({})),
     ])
-        .then(([data, lang]) => {
+        .then(([data, lang, expTables]) => {
             statMeta = lang.stat_meta || {};
             equipLabels = Object.assign({}, EQUIP_LABELS, lang.equipment_types || {});
+            console.log(equipLabels);
             slotLabels = lang.slot_keys || {};
             buffLabels = lang.BUFF || lang.buff || {};
             chips = data.map((entry) => ({
@@ -391,8 +399,8 @@
                 slot_id: entry.slot_id,
                 slot_key: entry.slot_key,
                 slot_name_key: entry.slot_name_key,
-                equipment_options: entry.equipment_options || {},
-                exp_requirements: entry.exp_requirements || {}
+                options: entry.options || {},
+                exp_requirements: resolveExpRequirements(entry, expTables)
             }));
 
             statMeta["BUFF"] = {
@@ -408,7 +416,7 @@
             chip2.disabled = true;
 
             const allEquipTypes = Array.from(
-                new Set(chips.flatMap((chip) => Object.keys(chip.equipment_options || {})))
+                new Set(chips.flatMap((chip) => Object.keys(chip.options || {})))
             ).sort((a, b) => getEquipOrderIndex(a) - getEquipOrderIndex(b) || (equipLabels[a] || a).localeCompare(equipLabels[b] || b));
 
             allEquipTypes.forEach((equipType) => {
