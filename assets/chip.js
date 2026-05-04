@@ -390,7 +390,6 @@
         .then(([data, lang, expTables]) => {
             statMeta = lang.stat_meta || {};
             equipLabels = Object.assign({}, EQUIP_LABELS, lang.equipment_types || {});
-            console.log(equipLabels);
             slotLabels = lang.slot_keys || {};
             buffLabels = lang.BUFF || lang.buff || {};
             chips = data.map((entry) => ({
