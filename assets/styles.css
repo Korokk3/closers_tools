@@ -1,0 +1,147 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
+}
+.site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.12));
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+.site-nav__brand {
+    color: #222;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+.site-nav__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.site-nav__link {
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: #4a4a4a;
+    text-decoration: none;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(102, 126, 234, 0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.site-nav__link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(102, 126, 234, 0.14);
+}
+.site-nav__link.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+}
+h1, h2 { margin: 0 0 12px; text-align: center; color: #222; }
+.controls, .pet-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.controls { margin-bottom: 24px; }
+.control-group { display: flex; flex-direction: column; }
+label { margin-bottom: 8px; font-weight: 700; color: #444; }
+select {
+    padding: 12px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 1em;
+}
+.pet-card {
+    padding: 18px 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #dfe6f3 100%);
+    border-left: 4px solid #667eea;
+}
+.pet-card.pet2 { border-left-color: #764ba2; }
+.pet-name { font-size: 1.2em; font-weight: 800; color: #222; margin-bottom: 6px; }
+.pet-detail { color: #666; }
+#comparison-area {
+    margin-top: 26px;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+th, td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+.stat-name { font-weight: 700; color: #333; }
+.value-pet1 { color: #667eea; font-weight: 700; }
+.value-pet2 { color: #764ba2; font-weight: 700; }
+.diff { color: #d94848; font-weight: 700; }
+.diff-positive { color: #1f9d55; font-weight: 700; }
+.warning-box {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(229, 169, 16, 0.16), rgba(255, 214, 102, 0.24));
+    border: 1px solid rgba(229, 169, 16, 0.4);
+    color: #8a5d00;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(229, 169, 16, 0.08);
+}
+
+th:nth-child(1), td:nth-child(1) { width: 38%; }
+th:nth-child(2), td:nth-child(2) { width: 20%; }
+th:nth-child(3), td:nth-child(3) { width: 20%; }
+th:nth-child(4), td:nth-child(4) { width: 22%; }
+.empty-state { text-align: center; color: #888; padding: 36px 12px; }
+.footer { margin-top: 30px; text-align: center; color: #999; font-size: 0.9em; }
+@media (max-width: 768px) {
+    .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .controls, .pet-info { grid-template-columns: 1fr; }
+    #comparison-area {
+        overflow-x: visible;
+    }
+    table {
+        min-width: 0;
+        width: 100%;
+        table-layout: fixed;
+        font-size: 0.92em;
+    }
+    th, td {
+        padding: 10px 8px;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+    }
+    th:nth-child(1), td:nth-child(1) { width: 34%; }
+    th:nth-child(2), td:nth-child(2) { width: 22%; }
+    th:nth-child(3), td:nth-child(3) { width: 22%; }
+    th:nth-child(4), td:nth-child(4) { width: 22%; }
+}

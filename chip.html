@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클로저스 칩 비교</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="site-nav" aria-label="페이지 이동">
+            <a class="site-nav__brand" href="./pet.html">클로저스 도구</a>
+            <div class="site-nav__links">
+                <a class="site-nav__link" href="./pet.html">펫 비교</a>
+                <a class="site-nav__link is-active" href="./chip.html" aria-current="page">칩 비교</a>
+            </div>
+        </nav>
+        <h2>클로저스 칩 비교</h2>
+        <p style="text-align:center;color:#888;margin-bottom:24px;">칩 오버클럭 능력치를 비교할 수 있습니다.</p>
+
+        <div style="margin-bottom: 24px;">
+            <fieldset style="margin-bottom: 16px; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #fafafa;">
+                <legend style="font-weight: bold; color: #333; padding: 0 8px;">장비 타입</legend>
+                <div class="control-group" style="margin-bottom: 0;">
+                    <label for="slot-select" style="display: block; margin-bottom: 4px; font-size: 0.9em; color: #666;">장비 타입 선택</label>
+                    <select id="slot-select" style="width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><option value="">-- 장비 타입 선택 --</option></select>
+                </div>
+            </fieldset>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <fieldset style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #fafafa;">
+                    <legend style="font-weight: bold; color: #333; padding: 0 8px;">원본 칩 (칩 1)</legend>
+                    <div style="display: flex; gap: 8px;">
+                        <div class="control-group" style="flex: 2; margin-bottom: 0;">
+                            <label for="chip1-select" style="display: block; margin-bottom: 4px; font-size: 0.9em; color: #666;">칩 선택</label>
+                            <select id="chip1-select" style="width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><option value="">-- 칩 선택 --</option></select>
+                        </div>
+                        <div class="control-group" style="flex: 1; margin-bottom: 0;">
+                            <label for="chip1-level" style="display: block; margin-bottom: 4px; font-size: 0.9em; color: #666;">강화 단계</label>
+                            <select id="chip1-level" style="width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><option value="0">+0</option></select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #fafafa;">
+                    <legend style="font-weight: bold; color: #333; padding: 0 8px;">목표 칩 (칩 2)</legend>
+                    <div style="display: flex; gap: 8px;">
+                        <div class="control-group" style="flex: 2; margin-bottom: 0;">
+                            <label for="chip2-select" style="display: block; margin-bottom: 4px; font-size: 0.9em; color: #666;">칩 선택</label>
+                            <select id="chip2-select" style="width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><option value="">-- 칩 선택 --</option></select>
+                        </div>
+                        <div class="control-group" style="flex: 1; margin-bottom: 0;">
+                            <label for="chip2-level" style="display: block; margin-bottom: 4px; font-size: 0.9em; color: #666;">강화 단계</label>
+                            <select id="chip2-level" style="width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><option value="0">+0</option></select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div id="comparison-area"><div class="empty-state"><p>칩을 선택하세요.</p></div></div>
+        <div class="footer"><p>마지막 업데이트: 2026. 05. 04.</p></div>
+    </div>
+    <script src="./assets/chip.js" defer></script>
+</body>
+</html>
